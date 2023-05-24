@@ -1,0 +1,21 @@
+services:
+  database:
+    image: postgres
+    env_file:
+      - .env
+    ports:
+      - "5557:5432"
+    volumes:
+      - /var/lib/postgresql/data2
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - cache:/data
+volumes:
+  cache:
+    driver: local
